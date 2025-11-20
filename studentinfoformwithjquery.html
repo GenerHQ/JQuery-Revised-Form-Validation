@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Information Form - Colegio de Montalban</title>
+    <style>
+      /* CSS Custom Properties for consistent theming */
+      :root {
+        --primary-color: #d3dd43;
+        --secondary-color: #c0be35;
+        --accent-color: #4caf50;
+        --light-color: #f1f8e9;
+        --dark-color: #1b5e20;
+        --success-color: #388e3c;
+        --warning-color: #f57c00;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      /* Global reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Body styling with gradient background */
+      body {
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      /* Main container for centering the form */
+      .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Form card with white background and shadow */
+      .form-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+      }
+
+      /* Header section with gradient background */
+      .form-header {
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 20px 30px;
+        text-align: center;
+      }
+
+      /* Logo container for logo and text alignment */
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Circular logo container */
+      .logo {
+        width: 80px;
+        height: 80px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      /* Logo image styling */
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      /* Text styling for logo area */
+      .logo-text {
+        text-align: left;
+      }
+
+      .logo-text h2 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+        color: white;
+      }
+
+      .logo-text p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      /* Form body padding */
+      .form-body {
+        padding: 30px;
+      }
+
+      /* Spacing between form groups */
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      /* Label styling */
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+      }
+
+      /* Input field styling */
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        transition: var(--transition);
+      }
+
+      /* Focus states for form elements */
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+      }
+
+      /* Radio and checkbox group layout */
+      .radio-group,
+      .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 5px;
+      }
+
+      /* Individual radio/checkbox option styling */
+      .radio-option,
+      .checkbox-option {
+        display: flex;
+        align-items: center;
+      }
+
+      .radio-option input,
+      .checkbox-option input {
+        margin-right: 8px;
+      }
+
+      /* Form row for side-by-side fields */
+      .form-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      /* Button group styling */
+      .btn-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      /* Base button styling */
+      button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        flex: 1;
+      }
+
+      /* Submit button specific styles */
+      .btn-submit {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .btn-submit:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+
+      /* Reset button specific styles */
+      .btn-reset {
+        background-color: #e0e0e0;
+        color: var(--dark-color);
+      }
+
+      .btn-reset:hover {
+        background-color: #d0d0d0;
+      }
+
+      /* Error message styling */
+      .error-message {
+        color: #d32f2f;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      /* Success message styling */
+      .success-message {
+        background-color: var(--success-color);
+        color: white;
+        padding: 15px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+      }
+
+      /* Required field indicator */
+      .required::after {
+        content: " *";
+        color: #d32f2f;
+      }
+
+      /* Disabled option styling */
+      .disabled-option {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .disabled-option label {
+        color: #666;
+      }
+
+      /* Institute note styling */
+      .institute-note {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+      }
+
+      /* Validation state classes */
+      .valid {
+        border-color: var(--success-color) !important;
+        box-shadow: 0 0 0 3px rgba(56, 142, 60, 0.2) !important;
+      }
+
+      .invalid {
+        border-color: #d32f2f !important;
+        box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+      }
+
+      /* Responsive design for mobile devices */
+      @media (max-width: 768px) {
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .btn-group {
+          flex-direction: column;
+        }
+
+        .logo-container {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .logo {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-card">
+        <div class="form-header">
+          <div class="logo-container">
+            <div class="logo">
+              <img src="cdmlogo.jpg" alt="Colegio de Montalban Logo" />
+            </div>
+            <div class="logo-text">
+              <h2>Student Information Form</h2>
+              <p>Please fill out the form below with your details</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-body">
+          <form id="studentForm">
+            <!-- Personal Information Section -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" class="required">Full Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your full name (e.g., Juan Dela Cruz)"
+                  maxlength="50"
+                />
+                <div class="error-message" id="nameError"></div>
+              </div>
+              <div class="form-group">
+                <label for="studentId" class="required">Student ID</label>
+                <input
+                  type="text"
+                  id="studentId"
+                  name="studentId"
+                  placeholder="Enter your student ID (e.g., 12-34567)"
+                  maxlength="8"
+                />
+                <div class="error-message" id="studentIdError"></div>
+              </div>
+            </div>
+
+            <!-- Age and Email Section -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="age" class="required">Age</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  min="1"
+                  max="100"
+                  placeholder="Enter your age"
+                />
+                <div class="error-message" id="ageError"></div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="required">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email address"
+                />
+                <div class="error-message" id="emailError"></div>
+              </div>
+            </div>
+
+            <!-- Gender Selection -->
+            <div class="form-group">
+              <label class="required">Gender</label>
+              <div class="radio-group">
+                <div class="radio-option">
+                  <input type="radio" id="male" name="gender" value="Male" />
+                  <label for="male">Male</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="Female"
+                  />
+                  <label for="female">Female</label>
+                </div>
+                <div class="radio-option">
+                  <input type="radio" id="other" name="gender" value="Other" />
+                  <label for="other">Other</label>
+                </div>
+              </div>
+              <div class="error-message" id="genderError"></div>
+            </div>
+
+            <!-- Course Selection -->
+            <div class="form-group">
+              <label for="course" class="required">Course</label>
+              <select id="course" name="course">
+                <option value="" disabled selected>Select your course</option>
+                <option value="BSIT">
+                  Bachelor of Science in Information Technology (BSIT)
+                </option>
+                <option value="BSCpE">
+                  Bachelor of Science in Computer Engineering (BSCpE)
+                </option>
+                <option value="BSBA_HRM">
+                  Bachelor of Science in Business Administration Major in Human
+                  Resource Management (BSBA HRM)
+                </option>
+                <option value="BSE">
+                  Bachelor of Science in Entrepreneurship (BSE)
+                </option>
+                <option value="BECEd">
+                  Bachelor of Early Childhood Education (BECEd)
+                </option>
+                <option value="BEEd">
+                  Bachelor of Elementary Education (BEEd)
+                </option>
+                <option value="BSEd_Science">
+                  Bachelor of Secondary Education major in Science (BSEd
+                  Science)
+                </option>
+                <option value="BTLEd_ICT">
+                  Bachelor of Technology and Livelihood Education (BTLEd ICT)
+                </option>
+                <option value="TCP">Teacher Certificate Program (TCP)</option>
+              </select>
+              <div class="error-message" id="courseError"></div>
+            </div>
+
+            <!-- Institute Selection (Auto-populated based on course) -->
+            <div class="form-group">
+              <label class="required">Institute</label>
+              <div class="radio-group">
+                <div class="radio-option disabled-option">
+                  <input
+                    type="radio"
+                    id="ics"
+                    name="institute"
+                    value="Institute of Computing Studies"
+                    disabled
+                  />
+                  <label for="ics">Institute of Computing Studies</label>
+                </div>
+                <div class="radio-option disabled-option">
+                  <input
+                    type="radio"
+                    id="ibe"
+                    name="institute"
+                    value="Institute of Business"
+                    disabled
+                  />
+                  <label for="ibe">Institute of Business</label>
+                </div>
+                <div class="radio-option disabled-option">
+                  <input
+                    type="radio"
+                    id="ite"
+                    name="institute"
+                    value="Institute of Education"
+                    disabled
+                  />
+                  <label for="ite">Institute of Education</label>
+                </div>
+              </div>
+              <div class="institute-note">
+                Institute will be automatically selected based on your course
+              </div>
+              <div class="error-message" id="instituteError"></div>
+            </div>
+
+            <!-- Form Action Buttons -->
+            <div class="btn-group">
+              <button type="submit" class="btn-submit">Submit Form</button>
+              <button type="reset" class="btn-reset">Reset Form</button>
+            </div>
+
+            <!-- Success Message (Hidden by default) -->
+            <div class="success-message" id="successMessage">
+              Your form has been submitted successfully!
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mapping of courses to their respective institutes
+      const courseToInstituteMap = {
+        BSIT: "ics",
+        BSCpE: "ics",
+        BSBA_HRM: "ibe",
+        BSE: "ibe",
+        BECEd: "ite",
+        BEEd: "ite",
+        BSEd_Science: "ite",
+        BTLEd_ICT: "ite",
+        TCP: "ite",
+      };
+
+      $(document).ready(function () {
+        // Course change event handler
+        $("#course").change(function () {
+          const selectedCourse = $(this).val();
+          const instituteId = courseToInstituteMap[selectedCourse];
+
+          if (instituteId) {
+            $('input[name="institute"]').prop("checked", false);
+            $(`#${instituteId}`).prop("checked", true);
+          }
+        });
+
+        // Form reset handler
+        $("#studentForm").on("reset", function () {
+          $(".error-message").text("").hide();
+          $("input, select").removeClass("valid invalid");
+          $("#successMessage").hide();
+        });
+
+        // OBJECTIVE IMPLEMENTATION: Using keyup(), blur(), classes, and conditions
+
+        // Name field validation - using keyup() and blur()
+        $("#name")
+          .keyup(function () {
+            validateNameField();
+          })
+          .blur(function () {
+            validateNameField();
+          });
+
+        // Student ID field validation - using keyup() and blur()
+        $("#studentId")
+          .keyup(function () {
+            // Auto-format student ID
+            let value = $(this).val().replace(/\D/g, "");
+            if (value.length > 2) {
+              value = value.substring(0, 2) + "-" + value.substring(2, 7);
+            }
+            $(this).val(value);
+
+            validateStudentIdField();
+          })
+          .blur(function () {
+            validateStudentIdField();
+          });
+
+        // Age field validation - using keyup() and blur()
+        $("#age")
+          .keyup(function () {
+            validateAgeField();
+          })
+          .blur(function () {
+            validateAgeField();
+          });
+
+        // Email field validation - using keyup() and blur()
+        $("#email")
+          .keyup(function () {
+            validateEmailField();
+          })
+          .blur(function () {
+            validateEmailField();
+          });
+
+        // Course field validation - using change() and blur()
+        $("#course")
+          .change(function () {
+            validateCourseField();
+          })
+          .blur(function () {
+            validateCourseField();
+          });
+
+        // Gender field validation - using change()
+        $('input[name="gender"]').change(function () {
+          validateGenderField();
+        });
+
+        // Form submission handler
+        $("#studentForm").submit(function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          validateNameField();
+          validateStudentIdField();
+          validateAgeField();
+          validateEmailField();
+          validateCourseField();
+          validateGenderField();
+
+          // Check if all fields are valid
+          const allValid =
+            $("#name").hasClass("valid") &&
+            $("#studentId").hasClass("valid") &&
+            $("#age").hasClass("valid") &&
+            $("#email").hasClass("valid") &&
+            $("#course").hasClass("valid") &&
+            $('input[name="gender"]:checked').length > 0;
+
+          if (allValid) {
+            $("#successMessage").show();
+            console.log("Form submitted with data:", getFormData());
+
+            setTimeout(() => {
+              $("#studentForm").trigger("reset");
+              $("#successMessage").hide();
+            }, 3000);
+          } else {
+            const firstError = $(".invalid").first();
+            if (firstError.length) {
+              $("html, body").animate(
+                {
+                  scrollTop: firstError.offset().top - 100,
+                },
+                500
+              );
+            }
+          }
+        });
+
+        // VALIDATION FUNCTIONS
+        function validateNameField() {
+          const name = $("#name").val().trim();
+          const nameError = $("#nameError");
+
+          // CONDITIONS: If input is empty → border turns red, if input has text → border turns green
+          if (name === "") {
+            $("#name").removeClass("valid").addClass("invalid");
+            nameError.text("Full name is required").show();
+          } else if (!validateName(name)) {
+            $("#name").removeClass("valid").addClass("invalid");
+            nameError
+              .text(
+                "Please enter a valid full name (2-50 characters, letters, spaces and hyphens only)"
+              )
+              .show();
+          } else {
+            $("#name").removeClass("invalid").addClass("valid");
+            nameError.text("").hide();
+          }
+        }
+
+        function validateStudentIdField() {
+          const value = $("#studentId").val();
+          const studentIdError = $("#studentIdError");
+
+          // CONDITIONS: If input is empty → border turns red, if input has text → border turns green
+          if (value === "") {
+            $("#studentId").removeClass("valid").addClass("invalid");
+            studentIdError.text("Student ID is required").show();
+          } else if (!validateStudentId(value)) {
+            $("#studentId").removeClass("valid").addClass("invalid");
+            studentIdError
+              .text("Please enter a valid student ID (format: xx-xxxxx)")
+              .show();
+          } else {
+            $("#studentId").removeClass("invalid").addClass("valid");
+            studentIdError.text("").hide();
+          }
+        }
+
+        function validateAgeField() {
+          const age = $("#age").val();
+          const ageError = $("#ageError");
+
+          // CONDITIONS: If input is empty → border turns red, if input has text → border turns green
+          if (age === "") {
+            $("#age").removeClass("valid").addClass("invalid");
+            ageError.text("Age is required").show();
+          } else if (age < 1 || age > 100) {
+            $("#age").removeClass("valid").addClass("invalid");
+            ageError.text("Please enter a valid age (1-100)").show();
+          } else {
+            $("#age").removeClass("invalid").addClass("valid");
+            ageError.text("").hide();
+          }
+        }
+
+        function validateEmailField() {
+          const email = $("#email").val().trim();
+          const emailError = $("#emailError");
+
+          // CONDITIONS: If input is empty → border turns red, if input has text → border turns green
+          if (email === "") {
+            $("#email").removeClass("valid").addClass("invalid");
+            emailError.text("Email is required").show();
+          } else if (!validateEmail(email)) {
+            $("#email").removeClass("valid").addClass("invalid");
+            emailError.text("Please enter a valid email address").show();
+          } else {
+            $("#email").removeClass("invalid").addClass("valid");
+            emailError.text("").hide();
+          }
+        }
+
+        function validateCourseField() {
+          const course = $("#course").val();
+          const courseError = $("#courseError");
+
+          // CONDITIONS: If no selection → border turns red, if selection made → border turns green
+          if (course === "") {
+            $("#course").removeClass("valid").addClass("invalid");
+            courseError.text("Please select your course").show();
+          } else {
+            $("#course").removeClass("invalid").addClass("valid");
+            courseError.text("").hide();
+          }
+        }
+
+        function validateGenderField() {
+          const genderError = $("#genderError");
+          const isChecked = $('input[name="gender"]:checked').length > 0;
+
+          // CONDITIONS: If no selection → show error, if selection made → hide error
+          if (!isChecked) {
+            $(".radio-group").addClass("invalid");
+            genderError.text("Please select your gender").show();
+          } else {
+            $(".radio-group").removeClass("invalid");
+            genderError.text("").hide();
+          }
+        }
+
+        // VALIDATION HELPER FUNCTIONS
+        function validateName(name) {
+          if (name.length < 2 || name.length > 50) return false;
+          const nameRegex = /^[A-Za-z\s-]+$/;
+          return nameRegex.test(name);
+        }
+
+        function validateStudentId(studentId) {
+          const studentIdRegex = /^\d{2}-\d{5}$/;
+          return studentIdRegex.test(studentId);
+        }
+
+        function validateEmail(email) {
+          const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return re.test(email);
+        }
+
+        function getFormData() {
+          const formData = {};
+          $("#studentForm")
+            .serializeArray()
+            .forEach(function (field) {
+              formData[field.name] = field.value;
+            });
+          return formData;
+        }
+      });
+    </script>
+  </body>
+</html>
